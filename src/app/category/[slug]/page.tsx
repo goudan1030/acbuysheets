@@ -15,7 +15,14 @@ const CATEGORIES = {
 
 type CategorySlug = keyof typeof CATEGORIES;
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+type Props = {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function CategoryPage({ params }: Props) {
   // 验证分类是否存在
   if (!Object.keys(CATEGORIES).includes(params.slug)) {
     notFound();

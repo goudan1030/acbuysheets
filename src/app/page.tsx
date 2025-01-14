@@ -1,3 +1,7 @@
+'use client';
+
+import Link from 'next/link';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import HomeBanner from '@/components/HomeBanner';
 import CategorySection from '@/components/CategorySection';
 import QrSection from '@/components/QrSection';

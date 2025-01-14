@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import HomeBanner from '@/components/HomeBanner';
 import CategorySection from '@/components/CategorySection';
 import QrSection from '@/components/QrSection';
@@ -10,16 +8,14 @@ import HowToBuy from '@/components/HowToBuy';
 
 export default function Home() {
   return (
-    <>
-      <div className="relative">
-        <HomeBanner />
-        <div className="mt-[280px]">
-          <CategorySection />
-          <QrSection />
-          <WhatIsAcbuy />
-          <HowToBuy />
-        </div>
+    <div className="relative">
+      <HomeBanner />
+      <div className="mt-[280px]">
+        <CategorySection />
+        <QrSection />
+        <WhatIsAcbuy />
+        <HowToBuy />
       </div>
-    </>
+    </div>
   );
 }

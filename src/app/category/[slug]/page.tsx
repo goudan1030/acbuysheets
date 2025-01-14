@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-// 定义分类映射
 const CATEGORIES = {
   'shoes': 'Shoes',
   'hoodies': 'Hoodies & Sweaters',
@@ -15,15 +14,13 @@ const CATEGORIES = {
 
 type CategorySlug = keyof typeof CATEGORIES;
 
-type Props = {
+interface PageProps {
   params: {
     slug: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+}
 
-export default async function CategoryPage({ params }: Props) {
-  // 验证分类是否存在
+export default function CategoryPage({ params }: PageProps) {
   if (!Object.keys(CATEGORIES).includes(params.slug)) {
     notFound();
   }
@@ -31,7 +28,7 @@ export default async function CategoryPage({ params }: Props) {
   const category = params.slug as CategorySlug;
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       {/* Banner 区域 */}
       <div className="bg-[#D6FFF1] h-[320px]">
         <div className="h-full flex justify-center items-center">

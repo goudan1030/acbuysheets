@@ -31,7 +31,7 @@ interface Product {
 
 const DEFAULT_IMAGE = '/images/placeholder.png';
 
-async function getProducts(slug: string) {
+async function getProductsWithImages(slug: string) {
   const categoryValue = CATEGORIES[slug as CategorySlug];
   
   const { data, error } = await supabase
@@ -41,7 +41,19 @@ async function getProducts(slug: string) {
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return data || [];
+
+  // 获取所有产品的图片 URL
+  const productsWithImages = await Promise.all(
+    (data || []).map(async (product) => {
+      const imageUrl = product.image_url || await getImageUrl(product.image_id, null);
+      return {
+        ...product,
+        displayImage: imageUrl || DEFAULT_IMAGE
+      };
+    })
+  );
+
+  return productsWithImages;
 }
 
 export default async function CategoryPage({
@@ -51,7 +63,7 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const products = await getProducts(params.slug);
+  const products = await getProductsWithImages(params.slug);
 
   return (
     <div className="bg-white">
@@ -86,7 +98,7 @@ function ProductListSkeleton() {
   );
 }
 
-function ProductList({ products }: { products: Product[] }) {
+function ProductList({ products }: { products: (Product & { displayImage: string })[] }) {
   return (
     <div className="p-[80px]">
       <div className="grid grid-cols-4 gap-y-6">
@@ -100,7 +112,7 @@ function ProductList({ products }: { products: Product[] }) {
               <div 
                 className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
                 style={{ 
-                  backgroundImage: `url(${DEFAULT_IMAGE})`,
+                  backgroundImage: `url(${product.displayImage})`,
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   backgroundColor: '#ffffff'

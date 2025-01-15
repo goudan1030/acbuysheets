@@ -13,10 +13,12 @@ export function ProductCardSkeleton() {
 export function ProductDetailSkeleton() {
   return (
     <div className="animate-pulse">
-      {/* Banner 骨架屏 */}
+      {/* Banner 区域 - 保持原样，不使用骨架屏 */}
       <div className="bg-[#D6FFF1] h-[320px]">
         <div className="h-full flex justify-center items-center">
-          <div className="w-[1212px] h-[225px] bg-gray-200 rounded-[20px]" />
+          <div className="w-[1212px] h-[225px] bg-black rounded-[20px] flex flex-col justify-center items-center px-[60px]">
+            {/* 标题和价格区域留空 */}
+          </div>
         </div>
       </div>
 

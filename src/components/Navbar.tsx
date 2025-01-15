@@ -25,7 +25,7 @@ export default function Navbar() {
             <Link href="/category/shoes" className="text-sm hover:text-gray-300 transition-colors">
               Shoes
             </Link>
-            <Link href="/category/hoodies" className="text-sm hover:text-gray-300 transition-colors">
+            <Link href="/category/hoodies-sweaters" className="text-sm hover:text-gray-300 transition-colors">
               Hoodies/Sweaters
             </Link>
             <Link href="/category/t-shirts" className="text-sm hover:text-gray-300 transition-colors">
@@ -34,7 +34,7 @@ export default function Navbar() {
             <Link href="/category/jackets" className="text-sm hover:text-gray-300 transition-colors">
               Jackets
             </Link>
-            <Link href="/category/pants" className="text-sm hover:text-gray-300 transition-colors">
+            <Link href="/category/pants-shorts" className="text-sm hover:text-gray-300 transition-colors">
               Pants/Shorts
             </Link>
             <Link href="/category/headwear" className="text-sm hover:text-gray-300 transition-colors">

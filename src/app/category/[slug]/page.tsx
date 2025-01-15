@@ -8,10 +8,10 @@ import { ProductCardSkeleton } from '@/components/ProductSkeleton';
 
 const CATEGORIES = {
   'shoes': 'Shoes',
-  'hoodies': 'Hoodies',
+  'hoodies-sweaters': 'Hoodies/Sweaters',
   't-shirts': 'T-Shirts',
   'jackets': 'Jackets',
-  'pants': 'Pants',
+  'pants-shorts': 'Pants/Shorts',
   'headwear': 'Headwear',
   'accessories': 'Accessories',
   'other': 'Other'

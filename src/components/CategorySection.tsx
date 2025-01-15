@@ -7,10 +7,10 @@ import { useRef } from 'react';
 
 const categories = [
   { id: 'shoes', title: 'Shoes', image: '/categories/shoes.jpg' },
-  { id: 'hoodies', title: 'Hoodies/Sweaters', image: '/categories/hoodies.jpg' },
+  { id: 'hoodies-sweaters', title: 'Hoodies/Sweaters', image: '/categories/hoodies.jpg' },
   { id: 't-shirts', title: 'T-Shirts', image: '/categories/t-shirts.jpg' },
   { id: 'jackets', title: 'Jackets', image: '/categories/jackets.jpg' },
-  { id: 'pants', title: 'Pants/Shorts', image: '/categories/pants.jpg' },
+  { id: 'pants-shorts', title: 'Pants/Shorts', image: '/categories/pants.jpg' },
   { id: 'headwear', title: 'Headwear', image: '/categories/headwear.jpg' },
   { id: 'accessories', title: 'Accessories', image: '/categories/accessories.jpg' },
   { id: 'other', title: 'Other Stuff', image: '/categories/other.jpg' },

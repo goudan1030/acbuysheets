@@ -21,7 +21,13 @@ interface Product {
   purchase_link: string;
 }
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function ProductPage({ params }: PageProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [productImage, setProductImage] = useState<string | null>(null);
   const [qcImage, setQCImage] = useState<string | null>(null);

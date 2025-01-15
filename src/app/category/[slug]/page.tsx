@@ -21,9 +21,9 @@ const CATEGORIES = {
 type CategorySlug = keyof typeof CATEGORIES;
 
 interface PageProps {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 }
 
 interface Product {
@@ -47,8 +47,7 @@ export default function CategoryPage({ params }: PageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 32;
 
-  const resolvedParams = use(params);
-  const { slug } = resolvedParams;
+  const { slug } = params;
 
   // 计算分页数据
   const totalPages = Math.ceil((products?.length || 0) / productsPerPage);

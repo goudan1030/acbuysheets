@@ -20,10 +20,12 @@ const CATEGORIES = {
 
 type CategorySlug = keyof typeof CATEGORIES;
 
-type PageProps = {
+// 使用 Next.js 的标准类型定义
+type Props = {
   params: {
-    slug: CategorySlug;
+    slug: string;  // 改回 string 类型
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 interface Product {
@@ -39,7 +41,7 @@ interface Product {
 // 添加默认图片
 const DEFAULT_IMAGE = '/images/placeholder.png'; // 确保这个文件存在于 public/images 目录
 
-export default function CategoryPage({ params }: PageProps) {
+export default function CategoryPage({ params }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [productImages, setProductImages] = useState<Record<number, string>>({});
   const [loading, setLoading] = useState(true);

@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+import { Config } from 'next';
 
-const nextConfig: NextConfig = {
+const config: Config = {
   images: {
     domains: [
       'fhlnblqxfzwfxsklueie.supabase.co'
@@ -14,13 +14,11 @@ const nextConfig: NextConfig = {
     ],
   },
   eslint: {
-    // 在生产构建时忽略 ESLint 错误
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // 在生产构建时忽略类型错误
     ignoreBuildErrors: true,
   },
 };
 
-export default nextConfig;
+export default config;

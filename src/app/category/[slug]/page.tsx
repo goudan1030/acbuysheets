@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { PageProps } from 'next';
 import { supabase } from '@/lib/supabase';
 import { getImageUrl } from '@/lib/utils';
 import { ProductCardSkeleton } from '@/components/ProductSkeleton';
@@ -44,15 +45,13 @@ async function getProducts(slug: string) {
 }
 
 export default async function CategoryPage({
-  params: { slug }
-}: {
-  params: { slug: string }
-}) {
-  if (!Object.keys(CATEGORIES).includes(slug)) {
+  params,
+}: PageProps<{ slug: string }>) {
+  if (!Object.keys(CATEGORIES).includes(params.slug)) {
     notFound();
   }
 
-  const products = await getProducts(slug);
+  const products = await getProducts(params.slug);
 
   return (
     <div className="bg-white">
@@ -61,7 +60,7 @@ export default async function CategoryPage({
         <div className="h-full flex justify-center items-center">
           <div className="w-[820px] h-[154px] bg-black rounded-[20px] flex items-center justify-center">
             <h1 className="text-[72px] font-bold text-white">
-              {CATEGORIES[slug as CategorySlug]}
+              {CATEGORIES[params.slug as CategorySlug]}
             </h1>
           </div>
         </div>

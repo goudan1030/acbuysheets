@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, use } from 'react';
+import { useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
@@ -20,11 +20,11 @@ const CATEGORIES = {
 
 type CategorySlug = keyof typeof CATEGORIES;
 
-interface PageProps {
+type PageProps = {
   params: {
-    slug: string;
+    slug: CategorySlug;
   };
-}
+};
 
 interface Product {
   id: number;

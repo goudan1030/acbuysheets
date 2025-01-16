@@ -1,13 +1,10 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { supabase } from '@/lib/supabase';
 import { getImageUrl, getQCImageUrl } from '@/lib/utils';
-import { ProductDetailSkeleton } from '@/components/ProductSkeleton';
+import type { PageProps } from 'next';
 
 interface Product {
   id: number;
@@ -21,75 +18,46 @@ interface Product {
   purchase_link: string;
 }
 
-interface PageProps {
-  params: {
-    id: string;
+async function getProduct(id: string) {
+  const { data: product, error } = await supabase
+    .from('traffic_products')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+  if (!product) return null;
+
+  // 获取图片 URLs
+  const productImage = product.image_url || await getImageUrl(product.image_id, product.image_url);
+  const qcImage = product.qc_image_url || await getQCImageUrl(product.qc_image_id, product.qc_image_url);
+
+  return {
+    ...product,
+    productImage,
+    qcImage
   };
 }
 
-export default function ProductPage({ params }: PageProps) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [productImage, setProductImage] = useState<string | null>(null);
-  const [qcImage, setQCImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function ProductPage({
+  params,
+}: PageProps<{ id: string }>) {
+  const product = await getProduct(params.id);
 
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        // 获取产品数据
-        const { data: productData, error: productError } = await supabase
-          .from('traffic_products')
-          .select('*')
-          .eq('id', params.id)
-          .single();
-
-        if (productError) throw productError;
-        if (!productData) notFound();
-
-        console.log('Product data:', {
-          id: productData.id,
-          image_id: productData.image_id,
-          qc_image_id: productData.qc_image_id
-        });
-
-        setProduct(productData);
-
-        // 获取图片 URLs
-        if (productData.image_url || productData.image_id) {
-          const url = await getImageUrl(productData.image_id, productData.image_url);
-          setProductImage(url);
-        }
-
-        if (productData.qc_image_url || productData.qc_image_id) {
-          const url = await getQCImageUrl(productData.qc_image_id, productData.qc_image_url);
-          setQCImage(url);
-        }
-      } catch (err) {
-        console.error('Error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch product');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProduct();
-  }, [params.id]);
-
-  if (loading) return <ProductDetailSkeleton />;
-  if (error) return <div>Error: {error}</div>;
-  if (!product) return notFound();
+  if (!product) {
+    notFound();
+  }
 
   return (
     <div className="bg-white">
       {/* Banner 区域 */}
       <div className="bg-[#D6FFF1] h-[320px]">
-        <div className="h-full flex justify-center items-center">
-          <div className="w-[1212px] h-[225px] bg-black rounded-[20px] flex flex-col justify-center items-center px-[60px]">
-            <h1 className="text-[48px] font-bold text-white text-center">
+        <div className="h-full flex justify-center items-center px-4 sm:px-0">
+          <div className="w-[90%] sm:w-[1212px] h-[225px] bg-black rounded-[20px] flex flex-col justify-center items-center px-4 sm:px-[60px]">
+            <h1 className="text-[32px] sm:text-[48px] font-bold text-white text-center">
               {product.name}
             </h1>
-            <p className="text-[32px] font-bold text-white mt-2 text-center">
+            <p className="text-[24px] sm:text-[32px] font-bold text-white mt-2 text-center">
               ${product.current_price.toFixed(2)}
             </p>
           </div>
@@ -97,15 +65,15 @@ export default function ProductPage({ params }: PageProps) {
       </div>
 
       {/* 产品详情区域 */}
-      <div className="flex justify-center py-[60px]">
-        <div className="w-[1320px]">
+      <div className="flex justify-center py-[60px] px-4 sm:px-0">
+        <div className="w-full sm:w-[1320px]">
           {/* 图片区域 */}
-          <div className="flex justify-center gap-[40px]">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-[40px]">
             {/* 商品图片 */}
-            <div className="w-[440px] h-[456px] border border-[#DADEE6] overflow-hidden">
-              {productImage ? (
+            <div className="w-full sm:w-[440px] aspect-square sm:h-[456px] border border-[#DADEE6] overflow-hidden">
+              {product.productImage ? (
                 <Image
-                  src={productImage}
+                  src={product.productImage}
                   alt={product.name}
                   width={440}
                   height={456}
@@ -117,10 +85,10 @@ export default function ProductPage({ params }: PageProps) {
               )}
             </div>
             {/* QC图片 */}
-            <div className="w-[440px] h-[456px] border border-[#DADEE6] overflow-hidden">
-              {qcImage ? (
+            <div className="w-full sm:w-[440px] aspect-square sm:h-[456px] border border-[#DADEE6] overflow-hidden">
+              {product.qcImage ? (
                 <Image
-                  src={qcImage}
+                  src={product.qcImage}
                   alt={`${product.name} QC`}
                   width={440}
                   height={456}

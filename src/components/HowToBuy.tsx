@@ -2,7 +2,7 @@ export default function HowToBuy() {
   return (
     <section className="bg-white">
       <div className="flex justify-center py-[60px]">
-        <div className="w-[1320px]">
+        <div className="w-full px-4 sm:px-0 sm:w-[1320px]">
           <h2 className="text-[24px] font-bold text-black mb-6">
             How do I buy from acbuy?
           </h2>

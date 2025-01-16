@@ -14,7 +14,7 @@ const CATEGORIES = {
   'pants-shorts': 'Pants/Shorts',
   'headwear': 'Headwear',
   'accessories': 'Accessories',
-  'other': 'Other'
+  'other': 'Other Stuff'
 } as const;
 
 type CategorySlug = keyof typeof CATEGORIES;
@@ -69,9 +69,9 @@ export default async function CategoryPage({
     <div className="bg-white">
       {/* Banner 区域 */}
       <div className="bg-[#D6FFF1] h-[320px]">
-        <div className="h-full flex justify-center items-center">
-          <div className="w-[820px] h-[154px] bg-black rounded-[20px] flex items-center justify-center">
-            <h1 className="text-[72px] font-bold text-white">
+        <div className="h-full flex justify-center items-center px-4 sm:px-0">
+          <div className="w-[90%] sm:w-[820px] h-[154px] bg-black rounded-[20px] flex items-center justify-center">
+            <h1 className="text-[48px] sm:text-[72px] font-bold text-white text-center px-4 sm:px-0">
               {CATEGORIES[params.slug as CategorySlug]}
             </h1>
           </div>
@@ -79,9 +79,38 @@ export default async function CategoryPage({
       </div>
 
       {/* 产品列表区域 */}
-      <Suspense fallback={<ProductListSkeleton />}>
-        <ProductList products={products} />
-      </Suspense>
+      <div className="px-4 sm:px-[80px] py-[60px]">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          {products.map((product) => (
+            <Link 
+              href={`/product/${product.id}`} 
+              key={product.id} 
+              className="block border border-[#DADEE6] group"
+            >
+              <div className="aspect-square bg-gray-100 overflow-hidden">
+                <div 
+                  className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
+                  style={{ 
+                    backgroundImage: `url(${product.displayImage})`,
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#ffffff'
+                  }}
+                />
+              </div>
+              
+              <div className="h-[64px] flex flex-col justify-center px-4">
+                <h3 className="text-sm font-medium text-black group-hover:text-gray-600 truncate">
+                  {product.name}
+                </h3>
+                <p className="text-[14px] text-black mt-1">
+                  ${product.current_price.toFixed(2)}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,11 @@
+'use client';
+
 import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-16 h-[400px]">
-      <div className="px-20">
+    <footer className="bg-black text-white py-16">
+      <div className="px-4 sm:px-20">
         <div className="flex flex-col items-start space-y-8">
           <Image 
             src="/logo.svg" 
@@ -13,7 +15,7 @@ export default function Footer() {
             className="h-6 w-auto"
           />
           
-          <div className="text-xs space-y-6 text-gray-300">
+          <div className="text-[14px] space-y-6 text-gray-300">
             <p>
               © 2024 ACBuySheets.com is an independent platform and is not affiliated with or endorsed by the AllChinaBuy.com website or brand. Our website's primary function is to facilitate the discovery of products available on the AllChinaBuy website. ACBuySheets.com is exclusively intended for private users and does not function as a marketplace.
             </p>

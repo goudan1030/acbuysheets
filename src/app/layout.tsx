@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata as NextMetadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
   preload: true,
 });
 
-export const metadata: Metadata = {
+export const metadata: NextMetadata = {
   title: "电商网站",
   description: "基于 Next.js 构建的电商网站",
 };

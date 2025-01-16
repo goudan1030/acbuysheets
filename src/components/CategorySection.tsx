@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useRef } from 'react';
 
 const categories = [
   { id: 'shoes', title: 'Shoes', image: '/categories/shoes.jpg' },
@@ -23,7 +22,9 @@ export default function CategorySection() {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollAmount = 340; // 卡片宽度(300) + 间距(40)
+    const scrollAmount = window.innerWidth < 640 ? 
+      container.clientWidth : 340; // 移动端滚动整个视窗宽度
+    
     const currentScroll = container.scrollLeft;
     const targetScroll = direction === 'left' 
       ? currentScroll - scrollAmount 
@@ -36,49 +37,44 @@ export default function CategorySection() {
   };
 
   return (
-    <section className="bg-[#FBFBFE] h-[638px]">
-      <div className="flex justify-center py-[60px]">
-        <div className="w-[1320px]">
-          <h2 className="text-[48px] font-bold text-black mb-4">
+    <section className="bg-[#FBFBFE] h-auto sm:h-[638px]">
+      <div className="flex justify-center py-[30px] sm:py-[60px]">
+        <div className="w-full px-4 sm:px-0 sm:w-[1320px]">
+          <h2 className="text-[32px] sm:text-[48px] font-bold text-black mb-4">
             Browse using the buttons below!
           </h2>
           
-          <div className="flex gap-4 mb-8">
+          <div className="flex gap-4 mb-8 hidden sm:flex">
             <button 
               onClick={() => scroll('left')}
-              className="w-12 h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center hover:bg-gray-200 transition-colors"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              <ChevronLeftIcon className="w-6 h-6 text-black" />
+              <ChevronLeftIcon className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
             </button>
             <button 
               onClick={() => scroll('right')}
-              className="w-12 h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center hover:bg-gray-200 transition-colors"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              <ChevronRightIcon className="w-6 h-6 text-black" />
+              <ChevronRightIcon className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
             </button>
           </div>
           
           <div 
             ref={scrollContainerRef}
             className="overflow-x-auto scrollbar-hide"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-            }}
           >
-            <div className="flex gap-x-[40px] min-w-min">
+            <div className="grid grid-cols-2 sm:flex gap-4 sm:gap-[40px]">
               {categories.map((category) => (
                 <Link 
                   key={category.id}
                   href={`/category/${category.id}`}
                   className="block flex-shrink-0 group"
                 >
-                  <div className="w-[300px] h-[300px] bg-white rounded-[12px] overflow-hidden">
+                  <div className="w-full sm:w-[300px] aspect-square bg-white rounded-[12px] overflow-hidden">
                     <div className="w-full h-full bg-gray-200 group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   
-                  <h3 className="text-[20px] font-bold mt-4 text-center">
+                  <h3 className="text-[16px] sm:text-[20px] font-bold mt-4 text-center">
                     {category.title}
                   </h3>
                 </Link>

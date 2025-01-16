@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Banner from '@/components/Banner';
+import ScrollToTop from './ScrollToTop';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -9,6 +9,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <div>
       {children}
+      <ScrollToTop />
     </div>
   );
 } 

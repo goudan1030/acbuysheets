@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 export default function QrSection() {
   return (
-    <section className="bg-white h-[468px]">
+    <section className="bg-white">
       <div className="flex justify-center py-[60px]">
-        <div className="w-[1320px] flex flex-col items-center gap-12">
+        <div className="w-full px-4 sm:px-0 sm:w-[1320px] flex flex-col items-center gap-12">
           {/* QR 图片 */}
           <div className="relative w-[200px] h-[200px]">
             <Image

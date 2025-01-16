@@ -17,7 +17,7 @@ export default function Footer() {
           
           <div className="text-[14px] space-y-6 text-gray-300">
             <p>
-              © 2024 ACBuySheets.com is an independent platform and is not affiliated with or endorsed by the AllChinaBuy.com website or brand. Our website's primary function is to facilitate the discovery of products available on the AllChinaBuy website. ACBuySheets.com is exclusively intended for private users and does not function as a marketplace.
+              © 2024 ACBuySheets.com is an independent platform and is not affiliated with or endorsed by the acbuy.com website or brand. Our website's primary function is to facilitate the discovery of products available on the acbuy website. ACBuySheets.com is exclusively intended for private users and does not function as a marketplace.
             </p>
             
             <p>

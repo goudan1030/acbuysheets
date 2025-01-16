@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: NextMetadata = {
-  title: "电商网站",
-  description: "基于 Next.js 构建的电商网站",
+  title: "ACBuy - Your Trusted Shopping Guide",
+  description: "Find the best products with QC photos on ACBuy",
 };
 
 export default function RootLayout({

@@ -4,7 +4,7 @@ const config: Config = {
   images: {
     domains: [
       'fhlnblqxfzwfxsklueie.supabase.co',
-      'assets.allchinabuysheets.com'
+      'assets.acbuysheets.com'
     ],
     remotePatterns: [
       {
@@ -14,7 +14,7 @@ const config: Config = {
       },
       {
         protocol: 'https',
-        hostname: '*.allchinabuysheets.com',
+        hostname: '*.acbuysheets.com',
         pathname: '/**',
       },
     ],
